@@ -1,4 +1,5 @@
-using GeekShopping.Web.Services.Services;
+using GeekShopping.Web.Services;
+using GeekShopping.Web.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
