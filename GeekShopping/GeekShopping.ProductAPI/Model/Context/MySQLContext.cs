@@ -2,11 +2,23 @@
 
 namespace GeekShopping.ProductAPI.Model.Context
 {
-    public class MySQLContext : DbContext
+    public class MySqlContext : DbContext
     {
-        public MySQLContext() { }
-        public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) { }
+        public MySqlContext() { }
+        public MySqlContext(DbContextOptions<MySqlContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetProperties()
+                    .Where(p => p.ClrType == typeof(decimal))))
+                property.SetColumnType("decimal(10,2)");
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MySqlContext).Assembly);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

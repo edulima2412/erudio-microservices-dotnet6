@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Context Database
 var connection = builder.Configuration["MySqlConnection:MySqlConnectionString"];
 
-builder.Services.AddDbContext<MySQLContext>(options =>
+builder.Services.AddDbContext<MySqlContext>(options =>
     options.UseMySql(connection, new MySqlServerVersion(new Version(10, 6))));
 
 // AutoMapper

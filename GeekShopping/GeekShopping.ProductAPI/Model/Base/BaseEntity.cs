@@ -5,6 +5,11 @@ namespace GeekShopping.ProductAPI.Model.Base
 {
     public class BaseEntity
     {
+        public BaseEntity()
+        {
+            Id = Guid.NewGuid();
+        }
+
         [Key]
         [Column("Id")]
         public Guid Id { get; set; }
