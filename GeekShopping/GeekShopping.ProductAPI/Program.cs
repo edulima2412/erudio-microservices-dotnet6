@@ -10,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connection = builder.Configuration["MySqlConnection:MySqlConnectionString"];
 
 builder.Services.AddDbContext<MySqlContext>(options =>
-    options.UseMySql(connection, new MySqlServerVersion(new Version(10, 6))));
+    options.EnableSensitiveDataLogging(true)
+           .UseMySql(connection, new MySqlServerVersion(new Version(10, 6))));
 
 // AutoMapper
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
