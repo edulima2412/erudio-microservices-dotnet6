@@ -33,6 +33,7 @@ namespace GeekShopping.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Login()
         {
+
             return RedirectToAction(nameof(Index));
         }
 
