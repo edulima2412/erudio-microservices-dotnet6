@@ -5,10 +5,11 @@ namespace GeekShopping.CartAPI.Model.Context
 {
     public class MySqlContext : DbContext
     {
-        public MySqlContext() { }
         public MySqlContext(DbContextOptions<MySqlContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<CartHeader> CartHeaders { get; set; }
+        public DbSet<CartDetail> CartDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,8 +19,6 @@ namespace GeekShopping.CartAPI.Model.Context
                 property.SetColumnType("decimal(10,2)");
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MySqlContext).Assembly);
-
-            modelBuilder.Entity<Product>();
 
             base.OnModelCreating(modelBuilder);
         }
