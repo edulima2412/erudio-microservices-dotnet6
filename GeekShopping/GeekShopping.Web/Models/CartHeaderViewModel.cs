@@ -5,6 +5,6 @@
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public string CouponCode { get; set; }
-        public double PurchaseAmount { get; set; }
+        public decimal PurchaseAmount { get; set; }
     }
 }
