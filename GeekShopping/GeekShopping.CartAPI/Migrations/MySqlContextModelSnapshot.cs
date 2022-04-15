@@ -24,17 +24,19 @@ namespace GeekShopping.CartAPI.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)")
-                        .HasColumnName("Id");
+                        .HasColumnName("id");
 
                     b.Property<Guid>("CartHeaderId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("char(36)")
+                        .HasColumnName("cart_header_id");
 
                     b.Property<int>("Count")
                         .HasColumnType("int")
                         .HasColumnName("count");
 
                     b.Property<Guid>("ProductId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("char(36)")
+                        .HasColumnName("product_id");
 
                     b.HasKey("Id");
 
@@ -42,7 +44,7 @@ namespace GeekShopping.CartAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("cart_detail");
+                    b.ToTable("cart_detail", (string)null);
                 });
 
             modelBuilder.Entity("GeekShopping.CartAPI.Model.CartHeader", b =>
@@ -50,10 +52,10 @@ namespace GeekShopping.CartAPI.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)")
-                        .HasColumnName("Id");
+                        .HasColumnName("id");
 
                     b.Property<string>("CouponCode")
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("coupon_code");
 
                     b.Property<Guid>("UserId")
@@ -62,14 +64,15 @@ namespace GeekShopping.CartAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("cart_header");
+                    b.ToTable("cart_header", (string)null);
                 });
 
             modelBuilder.Entity("GeekShopping.CartAPI.Model.Product", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)")
-                        .HasColumnName("Id");
+                        .HasColumnName("id");
 
                     b.Property<string>("CategoryName")
                         .HasMaxLength(50)
@@ -93,12 +96,13 @@ namespace GeekShopping.CartAPI.Migrations
                         .HasColumnName("name");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("price");
 
                     b.HasKey("Id");
 
-                    b.ToTable("product");
+                    b.ToTable("product", (string)null);
                 });
 
             modelBuilder.Entity("GeekShopping.CartAPI.Model.CartDetail", b =>

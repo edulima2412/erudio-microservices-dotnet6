@@ -11,7 +11,7 @@ namespace GeekShopping.CouponAPI.Model.Base
         }
 
         [Key]
-        [Column("Id")]
+        [Column("id")]
         public Guid Id { get; set; }
     }
 }

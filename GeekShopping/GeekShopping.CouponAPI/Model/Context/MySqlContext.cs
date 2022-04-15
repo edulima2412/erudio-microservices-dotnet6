@@ -6,7 +6,7 @@ namespace GeekShopping.CouponAPI.Model.Context
     {
         public MySqlContext(DbContextOptions<MySqlContext> options) : base(options) { }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

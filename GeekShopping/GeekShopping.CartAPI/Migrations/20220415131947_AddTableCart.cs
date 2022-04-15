@@ -16,14 +16,14 @@ namespace GeekShopping.CartAPI.Migrations
                 name: "cart_header",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     user_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    coupon_code = table.Column<string>(type: "longtext", nullable: true)
+                    coupon_code = table.Column<string>(type: "varchar(50)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_cart_header", x => x.Id);
+                    table.PrimaryKey("PK_cart_header", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -31,10 +31,10 @@ namespace GeekShopping.CartAPI.Migrations
                 name: "product",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     name = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     category_name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
@@ -44,7 +44,7 @@ namespace GeekShopping.CartAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_product", x => x.Id);
+                    table.PrimaryKey("PK_product", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -52,38 +52,38 @@ namespace GeekShopping.CartAPI.Migrations
                 name: "cart_detail",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    CartHeaderId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ProductId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    cart_header_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    product_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     count = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_cart_detail", x => x.Id);
+                    table.PrimaryKey("PK_cart_detail", x => x.id);
                     table.ForeignKey(
-                        name: "FK_cart_detail_cart_header_CartHeaderId",
-                        column: x => x.CartHeaderId,
+                        name: "FK_cart_detail_cart_header_cart_header_id",
+                        column: x => x.cart_header_id,
                         principalTable: "cart_header",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_cart_detail_product_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_cart_detail_product_product_id",
+                        column: x => x.product_id,
                         principalTable: "product",
-                        principalColumn: "Id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cart_detail_CartHeaderId",
+                name: "IX_cart_detail_cart_header_id",
                 table: "cart_detail",
-                column: "CartHeaderId");
+                column: "cart_header_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cart_detail_ProductId",
+                name: "IX_cart_detail_product_id",
                 table: "cart_detail",
-                column: "ProductId");
+                column: "product_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
