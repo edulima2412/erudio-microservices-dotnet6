@@ -79,7 +79,7 @@ namespace GeekShopping.CartAPI.Model.Context
             modelBuilder.Entity<CartHeader>()
                 .Property(s => s.CouponCode)
                 .HasColumnName("coupon_code")
-                .HasColumnType("varchar(50)");
+                .HasMaxLength(30);
 
             #endregion
 

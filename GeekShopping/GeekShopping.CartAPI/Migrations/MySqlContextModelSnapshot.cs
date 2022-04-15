@@ -55,7 +55,8 @@ namespace GeekShopping.CartAPI.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("CouponCode")
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
                         .HasColumnName("coupon_code");
 
                     b.Property<Guid>("UserId")

@@ -18,7 +18,7 @@ namespace GeekShopping.CartAPI.Migrations
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     user_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    coupon_code = table.Column<string>(type: "varchar(50)", nullable: true)
+                    coupon_code = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>

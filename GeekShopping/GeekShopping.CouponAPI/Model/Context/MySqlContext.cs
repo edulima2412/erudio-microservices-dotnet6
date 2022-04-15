@@ -10,14 +10,27 @@ namespace GeekShopping.CouponAPI.Model.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            foreach (var property in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(e => e.GetProperties()
-                    .Where(p => p.ClrType == typeof(decimal))))
-                property.SetColumnType("decimal(10,2)");
+            modelBuilder.Entity<Coupon>()
+                .ToTable("coupon");
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MySqlContext).Assembly);
+            modelBuilder.Entity<Coupon>()
+                .HasKey(p => p.Id);
 
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Coupon>()
+                .Property(s => s.Id)
+                .HasColumnName("id");
+
+            modelBuilder.Entity<Coupon>()
+                .Property(s => s.CouponCode)
+                .HasColumnName("coupon_code")
+                .HasMaxLength(30)
+                .IsRequired();
+
+            modelBuilder.Entity<Coupon>()
+                .Property(s => s.DiscountAmount)
+                .HasColumnName("discount_amount")
+                .HasPrecision(10,2)
+                .IsRequired();
         }
     }
 }
