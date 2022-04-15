@@ -31,6 +31,28 @@ namespace GeekShopping.CouponAPI.Model.Context
                 .HasColumnName("discount_amount")
                 .HasPrecision(10,2)
                 .IsRequired();
+
+            modelBuilder.Entity<Coupon>()
+                .HasData(Seed());
+        }
+
+        private List<Coupon> Seed()
+        {
+            return new List<Coupon>
+            {
+                new Coupon
+                {
+                    Id = Guid.NewGuid(),
+                    CouponCode = "EDU_10",
+                    DiscountAmount = 10
+                },
+                new Coupon
+                {
+                    Id = Guid.NewGuid(),
+                    CouponCode = "EDU_20",
+                    DiscountAmount = 20
+                }
+            };
         }
     }
 }
