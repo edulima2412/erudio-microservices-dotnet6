@@ -9,17 +9,14 @@ namespace GeekShopping.Web.Controllers
     public class CartController : Controller
     {
         private readonly ILogger<CartController> _logger;
-        private readonly IProductService _productService;
         private readonly ICartService _cartService;
         private readonly ICouponService _couponService;
 
         public CartController(ILogger<CartController> logger,
-            IProductService productService,
             ICartService cartService,
             ICouponService couponService)
         {
             _logger = logger;
-            _productService = productService;
             _cartService = cartService;
             _couponService = couponService;
         }
@@ -92,7 +89,12 @@ namespace GeekShopping.Web.Controllers
 
             var response = await _cartService.Checkout(model.CartHeader, token);
 
-            if (response != null)
+            if (response != null && response.GetType() == typeof(string))
+            {
+                TempData["Error"] = response;
+                return RedirectToAction(nameof(Checkout));
+            }
+            else if (response != null)
             {
                 return RedirectToAction(nameof(Confirmation));
             }
