@@ -76,6 +76,8 @@ namespace GeekShopping.CartAPI.Controllers
             var cart = await _repository.FindCartByUserId(vo.UserId);
             if (cart == null) return NotFound();
             vo.CartDetails = cart.CartDetails;
+            vo.DateTime = DateTime.Now;
+            vo.CartTotalItens = cart.CartDetails.Sum(c => c.Count);
 
             //Task RabbitMQ
 

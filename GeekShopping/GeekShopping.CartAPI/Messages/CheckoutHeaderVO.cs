@@ -6,7 +6,7 @@ namespace GeekShopping.CartAPI.Messages
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public string CouponCode { get; set; }
+        public string? CouponCode { get; set; }
         public decimal PurchaseAmount { get; set; }
 
         public decimal DiscountAmount { get; set; }
@@ -19,6 +19,6 @@ namespace GeekShopping.CartAPI.Messages
         public string CVV { get; set; }
         public string ExpiryMonthYear { get; set; }
         public int CartTotalItens { get; set; }
-        public IEnumerable<CartDetailVO> CartDetails { get; set; }
+        public IEnumerable<CartDetailVO>? CartDetails { get; set; }
     }
 }
