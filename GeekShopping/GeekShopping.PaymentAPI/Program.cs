@@ -1,27 +1,7 @@
-using GeekShopping.OrderAPI.Model.Context;
-using GeekShopping.OrderAPI.RabbitMQConsumer;
-using GeekShopping.OrderAPI.RabbitMQSender;
-using GeekShopping.OrderAPI.Repository;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Context Database
-var connection = builder.Configuration["MySqlConnection:MySqlConnectionString"];
-
-builder.Services.AddDbContext<MySqlContext>(options =>
-    options.EnableSensitiveDataLogging(true)
-           .UseMySql(connection, new MySqlServerVersion(new Version(10, 6))));
-
-var builderDb = new DbContextOptionsBuilder<MySqlContext>();
-builderDb.UseMySql(connection, new MySqlServerVersion(new Version(10, 6)));
-
-builder.Services.AddSingleton(new OrderRepository(builderDb.Options));
-
-builder.Services.AddHostedService<RabbitMQCheckoutConsumer>();
-builder.Services.AddSingleton<IRabbitMQMessageSender, RabbitMQMessageSender>();
 
 builder.Services.AddControllers();
 
@@ -49,7 +29,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "GeekShopping.OrderAPI",
+        Title = "GeekShopping.PaymentAPI",
         Version = "v1"
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

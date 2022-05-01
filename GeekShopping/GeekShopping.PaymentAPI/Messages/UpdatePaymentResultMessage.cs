@@ -1,8 +1,8 @@
 ﻿using GeekShopping.MessageBus;
 
-namespace GeekShopping.OrderAPI.Messages
+namespace GeekShopping.PaymentAPI.Messages
 {
-    public class UpdatePaymentResultVO : BaseMessage
+    public class UpdatePaymentResultMessage : BaseMessage
     {
         public Guid OrderId { get; set; }
         public string Email { get; set; }
