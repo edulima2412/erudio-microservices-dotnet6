@@ -1,9 +1,9 @@
-﻿using GeekShopping.Email.Model;
+﻿using GeekShopping.Email.Messages;
 
 namespace GeekShopping.Email.Repository
 {
     public interface IEmailRepository
     {
-        Task UpdateOrderPaymentStatus(Guid headerId, bool status);
+        Task LogEmail(UpdatePaymentResultMessage message);
     }
 }
